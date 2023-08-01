@@ -1,3 +1,5 @@
+// 34. find first and last position
+
 // var searchRange = function(nums,target){
 //     if (nums.length===0){
 //         return [-1,-1]
@@ -46,6 +48,7 @@
 
 // console.log(searchRange([5,7,7,8,8,8,8,9,9,9,10], 8))
 
+// 704 binary search
 // var search= function (nums, target){
 //     let left = 0, right = nums.length-1
 //     while(right>=left){
@@ -67,3 +70,35 @@
 // console.log(search([-2,-1,0,1,2,3,5,6,7,8,9,12], 9))
 
 // console.log(search([-2,-1,0,1,2,3,5,6,7,8,9,12], 6))
+
+var searchInsert = function(nums, target){
+    if (target>nums[nums.length-1]){
+        return nums.length
+    } else if (target<=nums[0]){
+        return 0
+    }
+    let left = 0, right = nums.length-1
+    while(right >= left){
+        let mid = left+Math.floor((right-left)/2)
+        console.log('left',left, 'mid',mid, 'right',right)
+        if(nums[mid]> target){
+            if (nums[mid-1]<target){
+                return mid
+            } else if(nums[mid-1]===target){
+                return mid-1
+            }else {
+                right = mid -1
+            }
+        } else if (nums[mid]<target){
+            if(nums[mid+1]>=target){
+                return mid+1
+            } else {
+                left = mid +1
+            }
+        } else if (nums[mid]=== target){
+            return mid
+        }
+    }
+}
+
+console.log(searchInsert([1,2,3,4,5,10],6))
