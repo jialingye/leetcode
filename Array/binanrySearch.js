@@ -117,28 +117,71 @@
 
 //search in rotated sorted array
 
-var search = function (nums,target){
-    let left = 0, right = nums.length-1
-    while(right>=left){
-        mid = left+Math.floor((right-left)/2)
-        if (nums[mid]===target){
-            return mid
+// var search = function (nums,target){
+//     let left = 0, right = nums.length-1
+//     while(right>=left){
+//         mid = left+Math.floor((right-left)/2)
+//         if (nums[mid]===target){
+//             return mid
+//         }
+//         if(nums[mid]>=nums[left]){
+//             if (target > nums[mid] || target < nums[left]){
+//                 left = mid + 1
+//             } else {
+//                 right = mid - 1
+//             }
+//         } else if (nums[mid]<nums[left]){
+//             if (target < nums[mid] || target > nums[right]){
+//                 right = mid -1
+//             } else {
+//                 left = mid + 1
+//             }
+//         }
+//         }
+//     return -1
+// }
+
+// console.log(search([3,1],1))
+
+// var mySqrt = function (x){
+//     let left = 0, right = x
+//     while(right>=left){
+//         let mid = left+Math.floor((right-left)/2)
+//         console.log('left',left, 'mid',mid, 'right',right)
+//         if (mid*mid> x){
+//             right = mid -1
+//         } else if (mid*mid< x){
+//             if((mid+1)*(mid+1)>x){
+//                 return mid
+//             } else {
+//                 left = mid +1
+//             }
+//         } else if (mid*mid === x){
+//             return mid
+//         }
+//     }
+//     return mid
+// }
+
+// console.log(mySqrt(2))
+
+var isPerfectSquare= function(num){
+    let left = 0 , right = num
+    while (right >= left){
+        let mid = left + Math.floor((right-left)/2)
+        console.log ('left',left, 'mid',mid, 'right',right)
+        if (mid*mid> num){
+            right = mid -1
+        } else if (mid* mid < num){
+            if((mid+1)*(mid+1)>num){
+                return false
+            } 
+            left = mid + 1
+        } else if (mid*mid === num){
+            return true
         }
-        if(nums[mid]>=nums[left]){
-            if (target > nums[mid] || target < nums[left]){
-                left = mid + 1
-            } else {
-                right = mid - 1
-            }
-        } else if (nums[mid]<nums[left]){
-            if (target < nums[mid] || target > nums[right]){
-                right = mid -1
-            } else {
-                left = mid + 1
-            }
-        }
-        }
-    return -1
+    }
+    return false
 }
 
-console.log(search([3,1],1))
+console.log(isPerfectSquare(16))

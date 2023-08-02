@@ -23,25 +23,43 @@
 //     return -1;
 // };
 
-var strStr = function (haystack,needle) {
-    for (let i=0; i<haystack.length; i++) {
-        if(haystack[i]===needle[0]){
-            let index=i+1;
-          for(let j=1; j<needle.length; j++){
-            if (haystack[index]===needle[j]){
-                index++;
-                if(j===needle.length-1){
-                    return i;
+// var strStr = function (haystack,needle) {
+//     for (let i=0; i<haystack.length; i++) {
+//         if(haystack[i]===needle[0]){
+//             let index=i+1;
+//           for(let j=1; j<needle.length; j++){
+//             if (haystack[index]===needle[j]){
+//                 index++;
+//                 if(j===needle.length-1){
+//                     return i;
+//                 }
+//             } else {
+//                 return -1;
+//             }
+//           }
+//         }
+//     }
+//         return -1;
+
+// }
+
+
+var strStr = function(haystack, needle) {
+    for(let i = 0; i< haystack.length; i++){
+        if (haystack[i]===needle[0]){
+            let index=1
+            for (j=1; j<needle.length; j++){
+                if(haystack[i+j]===needle[j]){
+                    index ++
                 }
-            } else {
-                return -1;
             }
-          }
+            if(index === needle.length){
+                return i
+            } 
         }
     }
-        return -1;
-
-}
+    return -1
+ }
 
 console.log(strStr("leetcode","leeto"))
 console.log(strStr("sadbutsad","sad"))
