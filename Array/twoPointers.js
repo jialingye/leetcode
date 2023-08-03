@@ -124,3 +124,71 @@
 // console.log(twoSum([5,25,75],100))
 
 
+//844
+
+// var backspaceCompare = function (s,t){
+//     let sfast = 0, sslow = 0
+//     sArr = s.split('')
+//     tArr = t.split('')
+//     while (sfast< sArr.length){
+//         if (sArr[sfast]!=='#'){
+//             sArr[sslow]=sArr[sfast]
+//             sslow ++
+//         } else {
+//             sslow --
+//         }
+//         sfast ++
+//     }
+//     let tfast = 0, tslow=0
+//     while (tfast< tArr.length){
+//         if (tArr[tfast]!=='#'){
+//             tArr[tslow]=tArr[tfast]
+//             tslow++
+//         } else {
+//             tslow === 0? 0: tslow --
+//         }
+//         tfast ++ 
+//     }
+// console.log('tslow',tslow, 'sslow',sslow, 'tArr',tArr, 'sArr',sArr)
+//     if (tslow === sslow ){
+//         for (let i = 0; i<= tslow-1; i++){
+//             if (tArr[i]!==sArr[i]){
+//                 return false
+//             }
+//         }
+//         return true
+//     } else {
+//         return false
+//     }
+// }
+
+// console.log(backspaceCompare('y#fo##f','y#f#o##f'))
+
+var merge = function(nums1, m, nums2, n) {
+    let onefast = m-1 
+    let twofast = n-1
+    while (m>0 || n> 0){
+        if(nums2[twofast]>=nums1[onefast]){
+            nums1[m+n-1]=nums2[twofast]
+            twofast--
+            n--
+        } else if ( twofast<0){
+            nums1[m+n-1]=nums1[onefast]
+            onefast--
+            m--
+        } else if (onefast<0){
+            nums1[m+n-1]=nums2[twofast]
+            twofast--
+            n--
+        }
+        else {
+            nums1[m+n-1]=nums1[onefast]
+            onefast--
+            m--
+        }
+
+    } 
+    return nums1
+};
+
+console.log(merge([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 0, [-50,-50,-48,-47,-44,-44,-37,-35,-35,-32,-32,-31,-29,-29,-28,-26,-24,-23,-23,-21,-20,-19,-17,-15,-14,-12,-12,-11,-10,-9,-8,-5,-2,-2,1,1,3,4,4,7,7,7,9,10,11,12,14,16,17,18,21,21,24,31,33,34,35,36,41,41,46,48,48], 63))
