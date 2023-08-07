@@ -75,6 +75,82 @@
 
 //438. Find all anagrams in a string
 
-var findAnagrams = function(s,p){
-    
-}
+// var findAnagrams = function(s,p){
+//     let need = new Map()
+//     let res = []
+//     for(const char of p){
+//         need.set(char, (need.get(char)||0)+1)
+//     }
+//     console.log(need)
+//     let left = 0, right = 0, valid = 0
+//     let window = new Map()
+//     while (right<s.length){
+//         let c=s[right]
+//         right++
+//         if(need.has(c)){
+//             window.set(c, (window.get(c)||0)+1)
+//             if (window.get(c)===need.get(c)){
+//                 valid++
+//             }
+//         }
+//         while(right-left>=p.length){
+//             if (valid===need.size){
+//                 res.push(left)
+//             }
+//             const d= s[left]
+//             left ++
+//             if(window.has(d)){
+//                 if(window.get(d)===need.get(d)){
+//                     valid --
+//                 }
+//                 window.set(d,window.get(d)-1)
+//             }
+           
+//         }
+        
+//     }
+//     return res
+// }
+
+// console.log(findAnagrams('ababab', 'ab'))
+
+///76
+
+var minWindow = function(s, t) {
+    let need = new Map()
+    for(const char of t){
+        need.set(char, (need.get(char)||0)+1)
+    }
+    let left = 0, right =0 , valid=0
+    let window = new Map()
+    let minStr = Infinity
+    let result = ''
+    while(right<=s.length){
+        let c=s[right]
+       if (need.has(c)){
+            window.set(c,(window.get(c)||0)+1)
+            if (window.get(c)===need.get(c)){
+                valid ++
+            }
+        }
+        right++
+        console.log('left',left,'right',right,'valid',valid)
+        while(valid === need.size){
+            if (minStr > right-left){
+                minStr = right-left
+                result = s.substring(left, right)
+            }
+            let d=s[left]
+            left ++
+            if(need.has(d)){
+                if(window.get(d)===need.get(d)){
+                    valid--
+                }
+                window.set(d, window.get(d)-1)
+            }
+        }
+    }
+    return minStr === Infinity? "": result
+};
+
+console.log(minWindow("ADOBECODEBANC", "ABC"))
