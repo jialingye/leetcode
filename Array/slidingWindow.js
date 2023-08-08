@@ -134,7 +134,7 @@ var minWindow = function(s, t) {
             }
         }
         right++
-        console.log('left',left,'right',right,'valid',valid)
+        console.log('left',left,'right',right,'valid',valid, 'minStr', minStr, 'result', result)
         while(valid === need.size){
             if (minStr > right-left){
                 minStr = right-left
@@ -148,6 +148,7 @@ var minWindow = function(s, t) {
                 }
                 window.set(d, window.get(d)-1)
             }
+            console.log('while loop: left',left,'right',right,'valid',valid, 'minStr', minStr, 'result', result)
         }
     }
     return minStr === Infinity? "": result
