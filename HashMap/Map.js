@@ -108,3 +108,67 @@
 //Bonus... What if we had this:
 // [2,5,5,2,3,5,1,2,4]
 // return 5 because the pairs are before 2,2
+
+// var canConstruct = function(ransomNote, magazine) {
+//     let have = new Map()
+//     for (const char of magazine){
+//         have.set(char, (have.get(char)||0)+1)
+//         }
+//     console.log('have', have) 
+//     let need = new Map()
+//     for(const char of ransomNote){
+//         need.set(char, (need.get(char)||0)+1)
+//     }
+//     console.log('need', need)
+   
+//     for(let [key, value] of need){
+//         if (have.has(key)){
+//             if(have.get(key)<need.get(key)){
+//                return false
+//             }
+//         } else {
+//             return false;
+//         }
+//     }
+//     return true
+// };
+
+// console.log(canConstruct('fihjjjjei','hjibagacbhadfaefdjaeaebgi'))
+
+//49
+// var groupAnagrams = function(strs){
+//     let m = new Map()
+//     for (let str of strs){
+//         let sorted = str.split("").sort().join("")
+//         m.has(sorted)? m.set(sorted, [...m.get(sorted),str]): m.set(sorted, [str])
+//     }
+//     return Array.from(m.values())
+// }
+
+// var groupAnagrams = function(strs){
+    let m = {}
+    for (let str of strs){
+        let sorted = str.split("").sort().join("")
+        if(!m[sorted]){
+            m[sorted]=[str]
+        } else {
+            m[sorted].push(str)
+        }
+    }
+    return Object.values(m)
+// }
+
+var groupAnagrams = function(strs){
+    let res= {}
+    for (let str of strs){
+        let count = new Array().fill(0)
+        for (let c of str){
+            count[c.charCodeAt()-97]++
+        }
+        let key = count.join('#')
+        console.log('key',key)
+        res[key]? res[key].push(str):res[key]=[str]
+    }
+    return Object.values(res)
+}
+console.log(groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
