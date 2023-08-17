@@ -146,29 +146,90 @@
 // }
 
 // var groupAnagrams = function(strs){
-    let m = {}
-    for (let str of strs){
-        let sorted = str.split("").sort().join("")
-        if(!m[sorted]){
-            m[sorted]=[str]
-        } else {
-            m[sorted].push(str)
-        }
-    }
-    return Object.values(m)
+    // let m = {}
+    // for (let str of strs){
+    //     let sorted = str.split("").sort().join("")
+    //     if(!m[sorted]){
+    //         m[sorted]=[str]
+    //     } else {
+    //         m[sorted].push(str)
+    //     }
+    // }
+    // return Object.values(m)
 // }
 
-var groupAnagrams = function(strs){
-    let res= {}
-    for (let str of strs){
-        let count = new Array().fill(0)
-        for (let c of str){
-            count[c.charCodeAt()-97]++
+// var groupAnagrams = function(strs){
+//     let res= {}
+//     for (let str of strs){
+//         let count = new Array(26).fill(0)
+//         for (let char of str)count[char.charCodeAt()-97]++;
+//             console.log('count', count)
+        
+//         let key = count.join('#')
+//         console.log('key',key)
+//         res[key]? res[key].push(str):res[key]=[str]
+//     }
+//     return Object.values(res)
+// }
+// console.log(groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
+
+// var groupAnagrams = function(strs) {
+//     let res = {};
+//     for (let str of strs) {
+//         let count = new Array(26).fill(0);
+//         for (let char of str) count[char.charCodeAt()-97]++;
+//         let key = count.join("#");
+//         res[key] ? res[key].push(str) : res[key] = [str];
+//     }
+//     return Object.values(res);
+// };
+
+// var isHappy = function(n) {
+//     let result = new Set()
+//     let checkSum = sum(n)
+
+//     while(checkSum!==1){
+//         if(!result.has(checkSum)){
+//             result.add(checkSum)
+//             checkSum = sum(checkSum)
+//         } else {
+//             return false
+//         }
+
+//     }
+//     return true
+// };
+
+// var sum = function(num){
+//     let newSum = 0
+//     while (num!==0){
+//         let ex = num % 10
+//         newSum = newSum + ex**2
+//         num = Math.floor(num/10)
+//     }
+//     return newSum;
+// }
+
+// console.log(isHappy(19))
+
+var fourSumCount = function(nums1, nums2, nums3, nums4) {
+    let result = new Map()
+    let count = 0
+    for (const one of nums1){
+        for (const two of nums2){
+            let sum = one + two
+            result.set(sum, (result.get(sum)||0)+1)
         }
-        let key = count.join('#')
-        console.log('key',key)
-        res[key]? res[key].push(str):res[key]=[str]
     }
-    return Object.values(res)
-}
-console.log(groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
+    console.log(result)
+    for (const three of nums3){
+        for (const four of nums4){
+            let backsum = three + four
+            //console.log(three, '+',four, '=', backsum, result.get(0-backsum))
+            count = count + (result.has(0-backsum)? result.get(0-backsum):0)
+        }
+    }
+    return count
+};
+
+console.log(fourSumCount([1,2],[-2,-1],[-1,2],[0,2]))
