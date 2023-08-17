@@ -195,22 +195,76 @@
 // console.log(merge([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], 0, [-50,-50,-48,-47,-44,-44,-37,-35,-35,-32,-32,-31,-29,-29,-28,-26,-24,-23,-23,-21,-20,-19,-17,-15,-14,-12,-12,-11,-10,-9,-8,-5,-2,-2,1,1,3,4,4,7,7,7,9,10,11,12,14,16,17,18,21,21,24,31,33,34,35,36,41,41,46,48,48], 63))
 
 //977
-var sortedSquares = function(nums) {
-    let left = 0, right = nums.length-1
-    let n = nums.length-1
-    let res= []
-    while (right>=left){
-        if (Math.abs(nums[right])>=Math.abs(nums[left])){
-            res[n]=nums[right]*nums[right]
-            right --
-            n--
+// var sortedSquares = function(nums) {
+//     let left = 0, right = nums.length-1
+//     let n = nums.length-1
+//     let res= []
+//     while (right>=left){
+//         if (Math.abs(nums[right])>=Math.abs(nums[left])){
+//             res[n]=nums[right]*nums[right]
+//             right --
+//             n--
+//         } else {
+//             res[n]=nums[left]*nums[left]
+//             left++
+//             n--
+//         }
+//     }
+//     return res
+// };
+
+// console.log(sortedSquares([-7,-3,2,3,11]))
+
+//541
+
+
+// var reverseStr = function(s, k) {
+//     let arr = s.split('')
+//     let left = 0; right = k 
+//     while (right<=s.length){
+//         if (right%(2*k)!== 0){
+//             let start = left, end = right-1
+//             while (start<end){
+//                 [arr[start], arr[end]]=[arr[end], arr[start]]
+//                 start++
+//                 end--
+//                 console.log('start',start, arr[start], 'end',end, arr[end], 's',arr)
+//             }
+//         }
+//     if(right+k<=s.length){
+//         right+=k
+//         left+=k
+//         console.log(right)
+//     } else if(right<s.length-1 && right+k>s.length && right%(2*k)===0){
+//         right = s.length
+//         left +=k
+//     } else {
+//         right+=k
+//     }
+    
+//     }
+//     return arr.join('')
+// };
+
+// console.log(reverseStr("abcdefg", 4))
+
+var addSpaces = function(s, spaces) {
+    let arr = new Array(s.length+spaces.length)
+    let sR= s.length-1, spaceR= spaces.length-1, arrR= arr.length-1
+    while(sR>=0){
+        if(sR!==spaces[spaceR]){
+            arr[arrR]=s[sR]
+            sR--
+            arrR--
         } else {
-            res[n]=nums[left]*nums[left]
-            left++
-            n--
+            arr[arrR]=s[sR]
+            arr[arrR-1]=" "
+            arrR=arrR-2
+            sR--
+            spaceR--
         }
     }
-    return res
+    return arr.join('')
 };
 
-console.log(sortedSquares([-7,-3,2,3,11]))
+console.log(addSpaces('spacing', [0,1,2,3,4,5,6]))
