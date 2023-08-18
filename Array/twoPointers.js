@@ -248,23 +248,73 @@
 
 // console.log(reverseStr("abcdefg", 4))
 
-var addSpaces = function(s, spaces) {
-    let arr = new Array(s.length+spaces.length)
-    let sR= s.length-1, spaceR= spaces.length-1, arrR= arr.length-1
-    while(sR>=0){
-        if(sR!==spaces[spaceR]){
-            arr[arrR]=s[sR]
-            sR--
-            arrR--
-        } else {
-            arr[arrR]=s[sR]
-            arr[arrR-1]=" "
-            arrR=arrR-2
-            sR--
-            spaceR--
-        }
-    }
-    return arr.join('')
-};
+// var addSpaces = function(s, spaces) {
+//     let arr = new Array(s.length+spaces.length)
+//     let sR= s.length-1, spaceR= spaces.length-1, arrR= arr.length-1
+//     while(sR>=0){
+//         if(sR!==spaces[spaceR]){
+//             arr[arrR]=s[sR]
+//             sR--
+//             arrR--
+//         } else {
+//             arr[arrR]=s[sR]
+//             arr[arrR-1]=" "
+//             arrR=arrR-2
+//             sR--
+//             spaceR--
+//         }
+//     }
+//     return arr.join('')
+// };
 
-console.log(addSpaces('spacing', [0,1,2,3,4,5,6]))
+// console.log(addSpaces('spacing', [0,1,2,3,4,5,6]))
+
+var intToRoman= function (num){
+    let numSplit, deductNum=0, exp=1
+    let romanStr = ""
+    while (deductNum <num ){
+        numSplit = (num-deductNum)%(10**exp)
+        deductNum += numSplit
+        romanStr = converStr(numSplit)+romanStr
+        console.log (numSplit, romanStr)
+        exp++
+    }
+
+    return romanStr
+}
+
+var converStr= function (numSplit){
+    let romanStr 
+    if( 0<=numSplit && numSplit<4){
+        romanStr = 'I'.repeat(numSplit)
+    } else if(numSplit===4){
+        romanStr = 'IV'
+    } else if (5<=numSplit && numSplit<9){
+        romanStr = 'V'+'I'.repeat(numSplit-5)
+    } else if ( numSplit===9){
+        romanStr = 'IX'
+    } else if (10<=numSplit && numSplit<40){
+        romanStr = 'X'.repeat(numSplit/10) 
+    } else if (numSplit===40){
+        romanStr = 'XL'
+    } else if (50<=numSplit && numSplit<90){
+        romanStr = 'L'+'X'.repeat(numSplit/10-5)
+    } else if (numSplit===90){
+        romanStr = 'XC'
+    } else if (100<=numSplit && numSplit<400){
+        romanStr = 'C'.repeat(numSplit/100)
+    } else if ( numSplit===400){
+        romanStr = 'CD'
+    } else if (500<=numSplit && numSplit<900){
+        romanStr = 'D'+'C'.repeat(numSplit/100-5)
+    } else if (numSplit===900){
+        romanStr = 'CM'
+    } else if (1000<=numSplit && numSplit<4000){
+        romanStr = 'M'.repeat(numSplit/1000)
+    }
+    return romanStr
+}
+
+
+//console.log(intToRoman(3994))
+//console.log((3994%1000)/1)
