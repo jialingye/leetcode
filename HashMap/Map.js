@@ -234,26 +234,147 @@
 
 // console.log(fourSumCount([1,2],[-2,-1],[-1,2],[0,2]))
 
-var maxOperations = function(nums, k) {
-    let result = 0
-    let storage = new Map()
-    for (const num of nums){
-        storage.set(num, (storage.get(num)||0)+1)
-    }
-    console.log(storage)
-    for (const [key, value] of storage){
-        if(storage.has(k-key)){
-            if (k === k-key){
-                let min = Math.floor(value/2)
-                result +=min
-            } else {
-                let min = Math.min(value, storage.get(k-key))
-                result += min
-            }
+// var maxOperations = function(nums, k) {
+//     let result = 0
+//     let storage = new Map()
+//     for (const num of nums){
+//         storage.set(num, (storage.get(num)||0)+1)
+//     }
+//     console.log(storage)
+//     for (const [key, value] of storage){
+//         if(storage.has(k-key)){
+//             if (k === k-key){
+//                 let min = Math.floor(value/2)
+//                 result +=min
+//             } else {
+//                 let min = Math.min(value, storage.get(k-key))
+//                 result += min
+//             }
 
+//         }
+//     }
+//     return Math.floor(result/2)
+// 
+
+// console.log(maxOperations([1,2,3,4],5))
+
+// var closeStrings = function(word1, word2) {
+//     if (word1.length != word2.length) return false
+//     if (word1 == word2) return true
+
+//     arr1 = Array(26).fill(0)
+//     arr2 = Array(26).fill(0)
+
+//     for (let i = 0; i < word1.length; i++) {
+//         arr1[word1.charCodeAt(i) - 97] ++
+//         arr2[word2.charCodeAt(i) - 97] ++        
+//     }    
+
+//     console.log(arr1, arr2)
+
+//     for (let i = 0; i < word1.length; i++) {
+//         if (arr1[i] > 0 && arr2[i] == 0) return false
+//         if (arr2[i] > 0 && arr1[i] == 0) return false        
+//     }        
+
+//     str1 = arr1.sort((a, b) => a - b).join('')
+//     str2 = arr2.sort((a, b) => a - b).join('')
+
+//     if (str1 == word1.length) return false
+
+//     return str1 == str2    
+// };
+
+// console.log(closeStrings("cabbba","aabbbc"))
+
+// var topKFrequent = function(nums, k) {
+//     let map = new Map()
+//     let arr = new Array(nums.length)
+//     let result = []
+//     for (const num of nums){
+//         map.set(num, (map.get(num)||0)+1)
+//     }
+//     for (const [key, value] of map){
+//         if (!arr[value-1]){
+//             arr[value-1]=[]
+//             arr[value-1].push(key)
+//         } else {
+//             arr[value-1].push(key)
+//         }
+//     }
+//     console.log(map,arr)
+//     let len = arr.length-1
+
+//     while (k>0 ){
+//         if(!arr[len]){
+//             len--
+//         } else {
+//             result.push(...arr[len])
+//             k=k-arr[len].length
+//             if (len===0){
+//                 break
+//             }
+//             len--
+//             console.log(k, len)
+//         }
+//     }
+//     return result
+// };
+
+//console.log(topKFrequent([4,1,-1,2,-1,2,3], 2))
+
+var isValidSudoku = function(board) {
+    
+    for (let i = 0 ; i<9; i++){
+        let row = new Set()
+        for (let j=0; j<9; j++){
+            let num = board[i][j]
+            if(num!=="."){
+                if(row.has(num)){
+                    return false
+                } else {
+                    row.add(num)
+                }
+            }
         }
     }
-    return Math.floor(result/2)
+    for (let j=0; j<9; j++){
+        let column = new Set()
+        for(let i = 0; i<9; i++){
+            let num = board[i][j]
+            if(num!=="."){
+                if(column.has(num)){
+                    return false
+                } else {
+                    column.add(num)
+                }
+            }
+        }
+    }
+    let k=0, l=0
+    while(l<3){
+        let square = new Set()
+        for(let i = l*3; i<(l*3+3);i++){
+            for(let j=k*3; j<(k*3+3); j++){
+                let num=board[i][j]
+                if(num !=="."){
+                    if(square.has(num)){
+                        return false
+                    } else {
+                        console.log('k',k, 'i', i, 'j', j, 'num',num)
+                        square.add(num)
+                    }
+                }
+            }
+        }
+        console.log(square)
+        k++
+        if (k===3){
+            l++
+            k=0
+        }
+    }
+    return true
 };
 
-console.log(maxOperations([1,2,3,4],5))
+console.log(isValidSudoku([[".",".",".",".","5",".",".","1","."],[".","4",".","3",".",".",".",".","."],[".",".",".",".",".","3",".",".","1"],["8",".",".",".",".",".",".","2","."],[".",".","2",".","7",".",".",".","."],[".","1","5",".",".",".",".",".","."],[".",".",".",".",".","2",".",".","."],[".","2",".","9",".",".",".",".","."],[".",".","4",".",".",".",".",".","."]]))

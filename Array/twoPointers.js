@@ -283,38 +283,61 @@ var intToRoman= function (num){
     return romanStr
 }
 
-var converStr= function (numSplit){
-    let romanStr 
-    if( 0<=numSplit && numSplit<4){
-        romanStr = 'I'.repeat(numSplit)
-    } else if(numSplit===4){
-        romanStr = 'IV'
-    } else if (5<=numSplit && numSplit<9){
-        romanStr = 'V'+'I'.repeat(numSplit-5)
-    } else if ( numSplit===9){
-        romanStr = 'IX'
-    } else if (10<=numSplit && numSplit<40){
-        romanStr = 'X'.repeat(numSplit/10) 
-    } else if (numSplit===40){
-        romanStr = 'XL'
-    } else if (50<=numSplit && numSplit<90){
-        romanStr = 'L'+'X'.repeat(numSplit/10-5)
-    } else if (numSplit===90){
-        romanStr = 'XC'
-    } else if (100<=numSplit && numSplit<400){
-        romanStr = 'C'.repeat(numSplit/100)
-    } else if ( numSplit===400){
-        romanStr = 'CD'
-    } else if (500<=numSplit && numSplit<900){
-        romanStr = 'D'+'C'.repeat(numSplit/100-5)
-    } else if (numSplit===900){
-        romanStr = 'CM'
-    } else if (1000<=numSplit && numSplit<4000){
-        romanStr = 'M'.repeat(numSplit/1000)
+// var converStr= function (numSplit){
+//     let romanStr 
+//     if( 0<=numSplit && numSplit<4){
+//         romanStr = 'I'.repeat(numSplit)
+//     } else if(numSplit===4){
+//         romanStr = 'IV'
+//     } else if (5<=numSplit && numSplit<9){
+//         romanStr = 'V'+'I'.repeat(numSplit-5)
+//     } else if ( numSplit===9){
+//         romanStr = 'IX'
+//     } else if (10<=numSplit && numSplit<40){
+//         romanStr = 'X'.repeat(numSplit/10) 
+//     } else if (numSplit===40){
+//         romanStr = 'XL'
+//     } else if (50<=numSplit && numSplit<90){
+//         romanStr = 'L'+'X'.repeat(numSplit/10-5)
+//     } else if (numSplit===90){
+//         romanStr = 'XC'
+//     } else if (100<=numSplit && numSplit<400){
+//         romanStr = 'C'.repeat(numSplit/100)
+//     } else if ( numSplit===400){
+//         romanStr = 'CD'
+//     } else if (500<=numSplit && numSplit<900){
+//         romanStr = 'D'+'C'.repeat(numSplit/100-5)
+//     } else if (numSplit===900){
+//         romanStr = 'CM'
+//     } else if (1000<=numSplit && numSplit<4000){
+//         romanStr = 'M'.repeat(numSplit/1000)
+//     }
+//     return romanStr
+// }
+
+
+// //console.log(intToRoman(3994))
+// //console.log((3994%1000)/1)
+
+var compress = function(chars) {
+    let  right = 0
+    let sStr = ""
+    let window = new Map()
+    while (right<chars.length){
+       window.set(chars[right], (window.get(chars[right])||0)+1)
+       right++
     }
-    return romanStr
-}
-
-
-//console.log(intToRoman(3994))
-//console.log((3994%1000)/1)
+    
+    for (const [key, value] of window){
+        if (value ===1){
+            sStr=sStr+key
+        } else {
+            sStr=sStr+key+value
+        }
+    }
+    let s=[...sStr]
+    console.log(s)
+    return s.length
+};
+console.log(compress(["a","b","b","c","c","c","c","c","c","c",'c','c','c']))
+console.log(compress(["a","b","b","c","c","c","c","c","c","c",'c','c','c']))
