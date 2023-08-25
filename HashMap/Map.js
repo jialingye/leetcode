@@ -212,24 +212,48 @@
 
 // console.log(isHappy(19))
 
-var fourSumCount = function(nums1, nums2, nums3, nums4) {
-    let result = new Map()
-    let count = 0
-    for (const one of nums1){
-        for (const two of nums2){
-            let sum = one + two
-            result.set(sum, (result.get(sum)||0)+1)
+// var fourSumCount = function(nums1, nums2, nums3, nums4) {
+//     let result = new Map()
+//     let count = 0
+//     for (const one of nums1){
+//         for (const two of nums2){
+//             let sum = one + two
+//             result.set(sum, (result.get(sum)||0)+1)
+//         }
+//     }
+//     console.log(result)
+//     for (const three of nums3){
+//         for (const four of nums4){
+//             let backsum = three + four
+//             //console.log(three, '+',four, '=', backsum, result.get(0-backsum))
+//             count = count + (result.has(0-backsum)? result.get(0-backsum):0)
+//         }
+//     }
+//     return count
+// };
+
+// console.log(fourSumCount([1,2],[-2,-1],[-1,2],[0,2]))
+
+var maxOperations = function(nums, k) {
+    let result = 0
+    let storage = new Map()
+    for (const num of nums){
+        storage.set(num, (storage.get(num)||0)+1)
+    }
+    console.log(storage)
+    for (const [key, value] of storage){
+        if(storage.has(k-key)){
+            if (k === k-key){
+                let min = Math.floor(value/2)
+                result +=min
+            } else {
+                let min = Math.min(value, storage.get(k-key))
+                result += min
+            }
+
         }
     }
-    console.log(result)
-    for (const three of nums3){
-        for (const four of nums4){
-            let backsum = three + four
-            //console.log(three, '+',four, '=', backsum, result.get(0-backsum))
-            count = count + (result.has(0-backsum)? result.get(0-backsum):0)
-        }
-    }
-    return count
+    return Math.floor(result/2)
 };
 
-console.log(fourSumCount([1,2],[-2,-1],[-1,2],[0,2]))
+console.log(maxOperations([1,2,3,4],5))
