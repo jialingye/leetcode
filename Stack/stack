@@ -1,0 +1,210 @@
+// var isValid = function(s) {
+//     let stack = []
+//     let match = {")":"(", "]":"[", "}":"{"}
+//     for (const char of s){
+//         if(char ==="(" || char ==="[" || char ==="{"){
+//             stack.push(char)
+//             console.log('in',stack)
+//         } else if (stack.length && match[char]===stack[stack.length-1]){
+//             stack.pop()
+//             console.log('out',stack )
+//         } else {
+//             return false
+//         }
+//     }
+//     return stack.length === 0
+// };
+
+// console.log(isValid('({[][]{()}]})'))
+
+// /**
+//  * @param {string[]} tokenss
+//  * @return {number}
+//  */
+var evalRPN = function(tokens) {
+    let stack = []
+    let result = 0 
+    let sub
+    let firstOperate= false; operateLast = false
+    for(let i = 0; i <tokens.length; i++){
+        let char = tokens[i]
+        if(char !=='+'&& char !=="-"&& char !=='*' && char!=='/'){
+            stack.push(char)
+             if(tokens[i+1]==='/' || tokens[i+1]==='-'){
+                operateLast = true
+            }
+           // console.log(stack)
+        } else if (firstOperate === false && stack.length>=2 ){
+            let n = stack.length -1 
+            if(char ==="*") result = result + parseInt(stack[n])*parseInt(stack[n-1])
+            if(char ==="+") result = result + parseInt(stack[n])+parseInt(stack[n-1])
+            if(char ==="-") result = result + parseInt(stack[n-1])-parseInt(stack[n])
+            if(char ==='/') {
+                result = result + parseInt(stack[n-1])/parseInt(stack[n])
+                  if(result < 0){
+                    result = -1* Math.floor(result*-1)
+                } else {
+                    result = Math.floor(result)
+                }
+            }
+             //console.log(result)
+            firstOperate = true
+            stack.pop()
+            stack.pop()
+        } else if (firstOperate === true && stack.length<2){
+            let n = stack.length-1
+            if (char ==="*") {
+                result = result * parseInt(stack[n])
+                stack.pop()}
+            else if (char ==="+") {
+                result = result + parseInt(stack[n])
+                stack.pop()}
+            else if (char === "-" && operateLast === true){
+                result = result - parseInt(stack[n])
+                operateLast = false
+                //console.log(result)
+                stack.pop()}
+            else if (char ==="-" && operateLast === false){
+                result = parseInt(stack[n])- result
+                //console.log('result',result)
+                stack.pop()
+            }
+            else if (char === '/' && operateLast === true){
+                result = result/parseInt(stack[n])
+                if(result < 0){
+                    result = -1* Math.floor(result*-1)
+                } else {
+                    result = Math.floor(result)
+                }
+                operateLast = false
+                stack.pop()
+            }
+            else if (char === '/' && operateLast === false){
+                result = parseInt(stack[n])/result
+                if(result < 0){
+                    result = -1* Math.floor(result*-1)
+                } else {
+                    result = Math.floor(result)
+                }
+                stack.pop()
+            }
+            console.log('sec', stack, result)
+        } else if (firstOperate === true && stack.length===2){
+            let n = stack.length-1
+            if (char ==="*") {
+                sub = parseInt(stack[n])*parseInt(stack[n-1])
+                if(tokens[i+1]==='+'){
+                    result = result+sub
+                } else if (tokens[i+1]==='-'){
+                    result = result-sub
+                } else if (tokens[i+1]==='*'){
+                    result = result * sub
+                } else if (tokens[i+1]==='/'){
+                    result = result/sub
+                    if(result < 0){
+                        result = -1* Math.floor(result*-1)
+                    } else {
+                        result = Math.floor(result)
+                    }
+                }
+                stack.pop()
+                stack.pop()}
+            else if (char ==="+") {
+                sub = parseInt(stack[n])+parseInt(stack[n-1])
+                if(tokens[i+1]==='+'){
+                    result = result+sub
+                } else if (tokens[i+1]==='-'){
+                    result = result-sub
+                } else if (tokens[i+1]==='*'){
+                    result = result * sub
+                } else if (tokens[i+1]==='/'){
+                    result = result/sub
+                    if(result < 0){
+                        result = -1* Math.floor(result*-1)
+                    } else {
+                        result = Math.floor(result)
+                    }
+                }
+                stack.pop()
+                stack.pop()}
+            else if (char === "-"){
+                sub = parseInt(stack[n-1])-parseInt(stack[n])
+                if(tokens[i+1]==='+'){
+                    result = result+sub
+                } else if (tokens[i+1]==='-'){
+                    result = result-sub
+                } else if (tokens[i+1]==='*'){
+                    result = result * sub
+                } else if (tokens[i+1]==='/'){
+                    result = result/sub
+                    if(result < 0){
+                        result = -1* Math.floor(result*-1)
+                    } else {
+                        result = Math.floor(result)
+                    }
+                }
+                stack.pop()
+                stack.pop()}
+            else if (char === '/'){
+                sub = parseInt(stack[n])/parseInt(stack[n-1])
+                if(sub < 0){
+                    sub = -1* Math.floor(sub*-1)
+                } else {
+                    sub = Math.floor(sub)
+                }
+                if(tokens[i+1]==='+'){
+                    result = result+sub
+                } else if (tokens[i+1]==='-'){
+                    result = result-sub
+                } else if (tokens[i+1]==='*'){
+                    result = result * sub
+                } else if (tokens[i+1]==='/'){
+                    result = result/sub
+                    if(result < 0){
+                        result = -1* Math.floor(result*-1)
+                    } else {
+                        result = Math.floor(result)
+                    }
+                }
+                stack.pop()
+                stack.pop()
+            }
+        }
+    }
+    if(stack.length===0){
+        return result
+    } else {
+        return stack[stack.length-1]
+    }
+};
+
+console.log(evalRPN(["4","-2","/","2","-3","-","-"]))
+
+var nextGreaterElement = function(nums1, nums2) {
+    let result = new Array(nums1.length).fill(-1)
+    let nextLarge = new Map()
+    let stack = []
+    for(let i=0; i<nums2.length; i++){
+       while (stack.length > 0 && stack[stack.length-1]<nums2[i]){
+           nextLarge.set(stack.pop(), nums2[i])
+       }
+       stack.push(nums2[i])
+    }
+    for(let i=0; i<nums1.length; i++){
+        nextLarge.has(nums1[i])? result[i]=nextLarge.get(nums1[i]): result[i]=-1
+    }
+    return result
+};
+
+var dailyTemperatures = function(temperatures) {
+    let result = new Array(temperatures.length).fill(0)
+    let stack = []
+     for (let i = 0; i< temperatures.length; i++){
+         while (stack.length>0 && temperatures[i]>temperatures[stack[stack.length-1]]){
+             const ans = stack.pop()
+             result[ans]= i-ans
+         }
+         stack.push(i)
+     }
+     return result
+ };

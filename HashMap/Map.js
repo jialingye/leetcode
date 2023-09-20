@@ -323,58 +323,111 @@
 
 //console.log(topKFrequent([4,1,-1,2,-1,2,3], 2))
 
-var isValidSudoku = function(board) {
+// var isValidSudoku = function(board) {
     
-    for (let i = 0 ; i<9; i++){
-        let row = new Set()
-        for (let j=0; j<9; j++){
-            let num = board[i][j]
-            if(num!=="."){
-                if(row.has(num)){
-                    return false
-                } else {
-                    row.add(num)
-                }
-            }
-        }
-    }
-    for (let j=0; j<9; j++){
-        let column = new Set()
-        for(let i = 0; i<9; i++){
-            let num = board[i][j]
-            if(num!=="."){
-                if(column.has(num)){
-                    return false
-                } else {
-                    column.add(num)
-                }
-            }
-        }
-    }
-    let k=0, l=0
-    while(l<3){
-        let square = new Set()
-        for(let i = l*3; i<(l*3+3);i++){
-            for(let j=k*3; j<(k*3+3); j++){
-                let num=board[i][j]
-                if(num !=="."){
-                    if(square.has(num)){
-                        return false
-                    } else {
-                        console.log('k',k, 'i', i, 'j', j, 'num',num)
-                        square.add(num)
-                    }
-                }
-            }
-        }
-        console.log(square)
-        k++
-        if (k===3){
-            l++
-            k=0
-        }
-    }
-    return true
-};
+//     for (let i = 0 ; i<9; i++){
+//         let row = new Set()
+//         for (let j=0; j<9; j++){
+//             let num = board[i][j]
+//             if(num!=="."){
+//                 if(row.has(num)){
+//                     return false
+//                 } else {
+//                     row.add(num)
+//                 }
+//             }
+//         }
+//     }
+//     for (let j=0; j<9; j++){
+//         let column = new Set()
+//         for(let i = 0; i<9; i++){
+//             let num = board[i][j]
+//             if(num!=="."){
+//                 if(column.has(num)){
+//                     return false
+//                 } else {
+//                     column.add(num)
+//                 }
+//             }
+//         }
+//     }
+//     let k=0, l=0
+//     while(l<3){
+//         let square = new Set()
+//         for(let i = l*3; i<(l*3+3);i++){
+//             for(let j=k*3; j<(k*3+3); j++){
+//                 let num=board[i][j]
+//                 if(num !=="."){
+//                     if(square.has(num)){
+//                         return false
+//                     } else {
+//                         console.log('k',k, 'i', i, 'j', j, 'num',num)
+//                         square.add(num)
+//                     }
+//                 }
+//             }
+//         }
+//         console.log(square)
+//         k++
+//         if (k===3){
+//             l++
+//             k=0
+//         }
+//     }
+//     return true
+// };
 
-console.log(isValidSudoku([[".",".",".",".","5",".",".","1","."],[".","4",".","3",".",".",".",".","."],[".",".",".",".",".","3",".",".","1"],["8",".",".",".",".",".",".","2","."],[".",".","2",".","7",".",".",".","."],[".","1","5",".",".",".",".",".","."],[".",".",".",".",".","2",".",".","."],[".","2",".","9",".",".",".",".","."],[".",".","4",".",".",".",".",".","."]]))
+// console.log(isValidSudoku([[".",".",".",".","5",".",".","1","."],[".","4",".","3",".",".",".",".","."],[".",".",".",".",".","3",".",".","1"],["8",".",".",".",".",".",".","2","."],[".",".","2",".","7",".",".",".","."],[".","1","5",".",".",".",".",".","."],[".",".",".",".",".","2",".",".","."],[".","2",".","9",".",".",".",".","."],[".",".","4",".",".",".",".",".","."]]))
+
+// var equalPairs = function(grid) {
+//     let row = new Map()
+//     let col = new Map()
+//     let rowArr, colArr, rowNum, colNum
+//     let ans = 0
+//     for (let i = 0; i<grid.length; i++){
+//         rowArr = []
+//         colArr = []
+//         for (let j = 0; j<grid.length; j++){
+//             rowArr.push(grid[i][j])
+//             colArr.push(grid[j][i])
+//         }
+//         rowNum = rowArr.join(',')
+//         colNum = colArr.join(',')
+
+//         row.set(rowNum, (row.get(rowNum) || 0)+1)
+//         col.set(colNum, (col.get(colNum) || 0)+1)
+//     }
+//     console.log(row, col)
+//     for (const [key, value] of row ){
+//         if (col.has(key)){
+//             ans = ans+value
+//         }
+//     }
+//     return ans 
+// };
+
+// console.log(equalPairs([[3,1,2,2],[1,4,4,5],[2,4,2,2],[2,4,2,2]]))
+
+function plusMinus(arr) {
+    // Write your code here
+    let result = [0,0,0]
+    for(let i=0; i<arr.length; i++){
+        if(arr[i]>0){
+            result[0]+= 1
+        } else if(arr[i]<0){
+            result[1]+= 1
+        } else {
+            result[2]+= 1
+        }
+    }
+    for (let i=0; i<result.length; i++){
+        result[i]=result[i]/arr.length
+        result[i]=result[i].toFixed(6)
+        result[i]=parseFloat(result[i])
+    }
+  
+   return result
+
+}
+
+console.log(plusMinus([1,1,0,-1,-1]))
