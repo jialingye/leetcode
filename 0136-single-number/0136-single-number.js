@@ -3,18 +3,16 @@
  * @return {number}
  */
 var singleNumber = function(nums) {
-    let map = new Map()
+    let map = new Set()
+    let num = 0
     for (let i =0; i<nums.length; i++){
         if (map.has(nums[i])){
-            map.set(nums[i], map.get(nums[i])+1)
+            num = num - nums[i]
         } else {
-            map.set(nums[i], 1)
+            map.add(nums[i])
+            num = num + nums[i]
         }
     }
     
-    for (const [key, value] of map){
-        if(value === 1){
-            return key
-        }
-    }
+  return num
 };
